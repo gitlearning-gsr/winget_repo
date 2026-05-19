@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "make": "Toyota",
+    "model": "Camry",
+    "year": 2025,
+    "trim": "XSE",
+    "fuel_type": "Hybrid",
+    "body_style": "Sedan",
+    "url": "https://www.toyota.com/configurator/api/lexicon/models/camry/grades",
+    "description": "The Toyota Camry XSE Hybrid blends sporty styling with exceptional fuel economy."
+  },
+  {
+    "id": 2,
+    "make": "Toyota",
+    "model": "RAV4",
+    "year": 2025,
+    "trim": "Prime",
+    "fuel_type": "Plug-in Hybrid",
+    "body_style": "SUV",
+    "url": "https://www.toyota.com/rav4prime",
+    "description": "The RAV4 Prime offers best-in-class EV range for a plug-in hybrid SUV."
+  },
+  {
+    "id": 3,
+    "make": "Honda",
+    "model": "Civic",
+    "year": 2025,
+    "trim": "Sport",
+    "fuel_type": "Gasoline",
+    "body_style": "Sedan",
+    "url": "https://www.honda.com/civic",
+    "description": "The Honda Civic Sport features a turbocharged engine and sporty design."
+  },
+  {
+    "id": 4,
+    "make": "Honda",
+    "model": "CR-V",
+    "year": 2025,
+    "trim": "Touring",
+    "fuel_type": "Hybrid",
+    "body_style": "SUV",
+    "url": "https://www.honda.com/cr-v",
+    "description": "The CR-V Touring Hybrid delivers outstanding efficiency without compromising space."
+  },
+  {
+    "id": 5,
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 2025,
+    "trim": "GT",
+    "fuel_type": "Gasoline",
+    "body_style": "Coupe",
+    "url": "https://www.ford.com/cars/mustang",
+    "description": "The iconic Ford Mustang GT with a 5.0L V8 engine delivering 480 horsepower."
+  },
+  {
+    "id": 6,
+    "make": "Ford",
+    "model": "F-150",
+    "year": 2025,
+    "trim": "Lariat",
+    "fuel_type": "Gasoline",
+    "body_style": "Truck",
+    "url": "https://www.ford.com/trucks/f150",
+    "description": "America's best-selling truck with Pro Power Onboard and available hybrid powertrain."
+  },
+  {
+    "id": 7,
+    "make": "Tesla",
+    "model": "Model 3",
+    "year": 2025,
+    "trim": "Long Range AWD",
+    "fuel_type": "Electric",
+    "body_style": "Sedan",
+    "url": "https://www.tesla.com/model3",
+    "description": "The Tesla Model 3 Long Range offers up to 358 miles of EPA-estimated range."
+  },
+  {
+    "id": 8,
+    "make": "Tesla",
+    "model": "Model Y",
+    "year": 2025,
+    "trim": "Performance",
+    "fuel_type": "Electric",
+    "body_style": "SUV",
+    "url": "https://www.tesla.com/modely",
+    "description": "The Model Y Performance reaches 0-60 mph in 3.5 seconds with all-wheel drive."
+  },
+  {
+    "id": 9,
+    "make": "BMW",
+    "model": "3 Series",
+    "year": 2025,
+    "trim": "M340i",
+    "fuel_type": "Gasoline",
+    "body_style": "Sedan",
+    "url": "https://www.bmwusa.com/vehicles/3series",
+    "description": "The BMW M340i xDrive delivers a 382-hp turbocharged inline-6 with M Sport features."
+  },
+  {
+    "id": 10,
+    "make": "BMW",
+    "model": "X5",
+    "year": 2025,
+    "trim": "xDrive45e",
+    "fuel_type": "Plug-in Hybrid",
+    "body_style": "SUV",
+    "url": "https://www.bmwusa.com/vehicles/x5",
+    "description": "The X5 xDrive45e plug-in hybrid combines a turbocharged engine with electric drive."
+  },
+  {
+    "id": 11,
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "year": 2025,
+    "trim": "LTZ",
+    "fuel_type": "Gasoline",
+    "body_style": "Truck",
+    "url": "https://www.chevrolet.com/trucks/silverado",
+    "description": "The Silverado LTZ offers available Super Cruise hands-free driving technology."
+  },
+  {
+    "id": 12,
+    "make": "Chevrolet",
+    "model": "Equinox EV",
+    "year": 2025,
+    "trim": "2LT",
+    "fuel_type": "Electric",
+    "body_style": "SUV",
+    "url": "https://www.chevrolet.com/electric/equinox-ev",
+    "description": "The Equinox EV offers up to 319 miles of range at an accessible price point."
+  }
+]
