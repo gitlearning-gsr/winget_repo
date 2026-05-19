@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winget Remote Control</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f0f0f;
+      color: #e8e8e8;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a2e;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #2d2d4a;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #7c9ef8;
+    }
+
+    header .badge {
+      background: #2d4a7a;
+      color: #7c9ef8;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #1a1a2e;
+      border: 1px solid #2d2d4a;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #a0aec0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      background: #0f0f0f;
+      border: 1px solid #2d2d4a;
+      border-radius: 0.5rem;
+      color: #e8e8e8;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #7c9ef8;
+    }
+
+    button {
+      background: #2d4a7a;
+      color: #7c9ef8;
+      border: 1px solid #3d5a8a;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    button:hover { background: #3d5a8a; }
+    button.danger { background: #4a1a1a; color: #f87c7c; border-color: #6a2a2a; }
+    button.danger:hover { background: #5a2a2a; }
+    button.success { background: #1a4a2a; color: #7cf87c; border-color: #2a6a3a; }
+    button.success:hover { background: #2a5a3a; }
+
+    pre {
+      background: #0a0a0a;
+      border: 1px solid #2d2d4a;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-top: 0.75rem;
+      color: #a8d8a8;
+      min-height: 3rem;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      color: #a0aec0;
+      margin-top: 0.5rem;
+    }
+
+    .status.error { color: #f87c7c; }
+    .status.ok { color: #7cf87c; }
+
+    .spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid #7c9ef8;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Winget Remote Control</h1>
+    <span class="badge">Web Interface</span>
+  </header>
+
+  <main>
+
+    <!-- List installed packages -->
+    <div class="card">
+      <h2>Installed Packages</h2>
+      <div class="row">
+        <button onclick="listPackages()">Refresh List</button>
+      </div>
+      <div id="list-status" class="status"></div>
+      <pre id="list-output">Click "Refresh List" to load installed packages.</pre>
+    </div>
+
+    <!-- Search -->
+    <div class="card">
+      <h2>Search</h2>
+      <div class="row">
+        <input type="text" id="search-input" placeholder="Package name (e.g. opera, git, vscode)" />
+        <button onclick="searchPackages()">Search</button>
+      </div>
+      <div id="search-status" class="status"></div>
+      <pre id="search-output">Search results will appear here.</pre>
+    </div>
+
+    <!-- Install -->
+    <div class="card">
+      <h2>Install Package</h2>
+      <div class="row">
+        <input type="text" id="install-input" placeholder="Package ID (e.g. Opera.Opera, Git.Git)" />
+        <button class="success" onclick="installPackage()">Install</button>
+      </div>
+      <div id="install-status" class="status"></div>
+      <pre id="install-output">Output will appear here.</pre>
+    </div>
+
+    <!-- Uninstall -->
+    <div class="card">
+      <h2>Uninstall Package</h2>
+      <div class="row">
+        <input type="text" id="uninstall-input" placeholder="Package ID (e.g. Opera.Opera)" />
+        <button class="danger" onclick="uninstallPackage()">Uninstall</button>
+      </div>
+      <div id="uninstall-status" class="status"></div>
+      <pre id="uninstall-output">Output will appear here.</pre>
+    </div>
+
+    <!-- Upgrade -->
+    <div class="card">
+      <h2>Upgrade</h2>
+      <div class="row">
+        <input type="text" id="upgrade-input" placeholder="Package ID (leave empty to upgrade all)" />
+        <button onclick="upgradePackage()">Upgrade</button>
+      </div>
+      <div id="upgrade-status" class="status"></div>
+      <pre id="upgrade-output">Output will appear here.</pre>
+    </div>
+
+  </main>
+
+  <script>
+    function setLoading(statusId, outputId) {
+      document.getElementById(statusId).innerHTML = '<span class="spinner"></span>Running...';
+      document.getElementById(statusId).className = 'status';
+      document.getElementById(outputId).textContent = '';
+    }
+
+    function setResult(statusId, outputId, data) {
+      const status = document.getElementById(statusId);
+      const output = document.getElementById(outputId);
+      if (data.error) {
+        status.textContent = 'Error: ' + data.error;
+        status.className = 'status error';
+        output.textContent = '';
+      } else {
+        const ok = data.returncode === 0;
+        status.textContent = ok ? 'Done (exit 0)' : `Exited with code ${data.returncode}`;
+        status.className = 'status ' + (ok ? 'ok' : 'error');
+        output.textContent = (data.stdout || '') + (data.stderr ? '\n--- stderr ---\n' + data.stderr : '');
+      }
+    }
+
+    async function listPackages() {
+      setLoading('list-status', 'list-output');
+      const res = await fetch('/api/packages');
+      setResult('list-status', 'list-output', await res.json());
+    }
+
+    async function searchPackages() {
+      const q = document.getElementById('search-input').value.trim();
+      if (!q) return;
+      setLoading('search-status', 'search-output');
+      const res = await fetch('/api/search?q=' + encodeURIComponent(q));
+      setResult('search-status', 'search-output', await res.json());
+    }
+
+    async function installPackage() {
+      const id = document.getElementById('install-input').value.trim();
+      if (!id) return;
+      setLoading('install-status', 'install-output');
+      const res = await fetch('/api/install', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      setResult('install-status', 'install-output', await res.json());
+    }
+
+    async function uninstallPackage() {
+      const id = document.getElementById('uninstall-input').value.trim();
+      if (!id) return;
+      setLoading('uninstall-status', 'uninstall-output');
+      const res = await fetch('/api/uninstall', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      setResult('uninstall-status', 'uninstall-output', await res.json());
+    }
+
+    async function upgradePackage() {
+      const id = document.getElementById('upgrade-input').value.trim();
+      setLoading('upgrade-status', 'upgrade-output');
+      const res = await fetch('/api/upgrade', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      setResult('upgrade-status', 'upgrade-output', await res.json());
+    }
+
+    document.getElementById('search-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchPackages();
+    });
+  </script>
+</body>
+</html>
